@@ -14,8 +14,10 @@ public class WiresGreedy {
             totalCost += cost;
             // Remove the two shortest wires and insert the merged wire
             wires[1] = cost;
+            System.out.println(Arrays.toString(wires));
             for (int i = 2; i < n; i++) {
                 wires[i - 1] = wires[i];
+                System.out.println(wires[i-1]);
             }
             System.out.println(Arrays.toString(wires)+" "+totalCost);
             n--; // Decrease the number of wires
