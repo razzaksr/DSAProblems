@@ -8,25 +8,39 @@ public class DoJumpGameVI {
         int n = nums.length;
         int[] dp = new int[n];
         dp[0] = nums[0];
-        Deque<Integer> maxDeque = new ArrayDeque<>();
-        maxDeque.offer(0);
 
         for (int i = 1; i < n; i++) {
-            while (!maxDeque.isEmpty() && maxDeque.peekFirst() < i - k) {
-                maxDeque.pollFirst();
+            int maxVal = dp[i - 1];
+            for (int j = i - 2; j >= Math.max(0, i - k); j--) {
+                maxVal = Math.max(maxVal, dp[j]);
             }
-
-            dp[i] = dp[maxDeque.peekFirst()] + nums[i];
-
-            while (!maxDeque.isEmpty() && dp[i] >= dp[maxDeque.peekLast()]) {
-                maxDeque.pollLast();
-            }
-
-            maxDeque.offerLast(i);
+            dp[i] = maxVal + nums[i];
         }
-
         return dp[n - 1];
     }
+//    public static int maxResult(int[] nums, int k) {
+//        int n = nums.length;
+//        int[] dp = new int[n];
+//        dp[0] = nums[0];
+//        Deque<Integer> maxDeque = new ArrayDeque<>();
+//        maxDeque.offer(0);
+//
+//        for (int i = 1; i < n; i++) {
+//            while (!maxDeque.isEmpty() && maxDeque.peekFirst() < i - k) {
+//                maxDeque.pollFirst();
+//            }
+//
+//            dp[i] = dp[maxDeque.peekFirst()] + nums[i];
+//
+//            while (!maxDeque.isEmpty() && dp[i] >= dp[maxDeque.peekLast()]) {
+//                maxDeque.pollLast();
+//            }
+//
+//            maxDeque.offerLast(i);
+//        }
+//
+//        return dp[n - 1];
+//    }
 
     public static void main(String[] args) {
         int[] nums1 = {1, -1, -2, 4, -7, 3};

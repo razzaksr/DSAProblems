@@ -1,6 +1,35 @@
 package problems.dsa.days.day2;
 
 public class DoLingIncreasSubSeqDP {
+    // O(n2) using DP
+    public static int LIS(int[] arr) {
+        int n = arr.length;
+        int[] dp = new int[n];
+
+        // Initialize all LIS values to 1, as each element is an LIS of length 1
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+        }
+
+        // Compute LIS values for each element
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j] && dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+
+        // Find the maximum LIS value
+        int maxLIS = 0;
+        for (int i = 0; i < n; i++) {
+            if (dp[i] > maxLIS) {
+                maxLIS = dp[i];
+            }
+        }
+
+        return maxLIS;
+    }
     // Function to find the length of the longest increasing subsequence
     public static int LIS(int[] arr, int i, int n, int prev)
     {
@@ -26,10 +55,12 @@ public class DoLingIncreasSubSeqDP {
 
     public static void main(String[] args)
     {
-//        int[] arr = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
-        int[] arr = { 0, 8, 4, 12, 2, 10, 6, 14, 9, 5, 13, 3, 11, 7 };
+        int[] arr = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
+//        int[] arr = { 0, 8, 4, 12, 2, 10, 6, 14, 9, 5, 13, 3, 11, 7 };
 
+//        System.out.print("The length of the LIS is "
+//                + LIS(arr, 0, arr.length, Integer.MIN_VALUE));
         System.out.print("The length of the LIS is "
-                + LIS(arr, 0, arr.length, Integer.MIN_VALUE));
+                + LIS(arr));
     }
 }
